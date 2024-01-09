@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 
-class ElevatedButtonWidget extends ConsumerWidget {
-  const ElevatedButtonWidget({super.key});
+class LoginButtonWidget extends ConsumerWidget {
+  const LoginButtonWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
