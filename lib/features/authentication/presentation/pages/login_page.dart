@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/core/widgets/elevatedbtn_widget.dart';
+import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/loginbutton_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/textfield_widget.dart';
 
@@ -53,6 +54,35 @@ class LoginPage extends ConsumerWidget {
                   ),
                   const LoginButtonWidget(),
                   const ElevatedButtonWidgetConst(),
+                  SizedBox(
+                    height: AppTheme.of(context).spaces.space_500,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        ref.watch(logConstProvider).text,
+                        style: AppTheme.of(context).typography.h400,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpPage(),
+                              ));
+                        },
+                        child: Text(
+                          ref.watch(logConstProvider).link,
+                          style: TextStyle(
+                              color:
+                                  AppTheme.of(context).colors.backgroundDanger,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
