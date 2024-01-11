@@ -3,11 +3,14 @@ import 'package:movie_app_auth/core/themes/app_theme.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? text;
-  const TextFieldWidget({super.key, required this.text});
+  final TextEditingController controller;
+  const TextFieldWidget(
+      {super.key, required this.text, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       cursorColor: AppTheme.of(context).colors.text,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(

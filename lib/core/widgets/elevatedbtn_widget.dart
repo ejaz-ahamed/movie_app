@@ -13,7 +13,7 @@ class ElevatedButtonWidgetConst extends ConsumerWidget {
           backgroundColor: AppTheme.of(context).colors.textInverse,
           elevation: 0.5,
           padding: EdgeInsets.symmetric(
-              vertical: AppTheme.of(context).spaces.space_150),
+              vertical: AppTheme.of(context).spaces.space_100),
         ),
         onPressed: () {},
         child: Row(
@@ -21,10 +21,14 @@ class ElevatedButtonWidgetConst extends ConsumerWidget {
           children: [
             Image.network(
               ref.watch(logConstProvider).logolink,
-              width: AppTheme.of(context).spaces.space_250,
+              width: AppTheme.of(context).spaces.space_400,
+            ),
+            SizedBox(
+              width: AppTheme.of(context).spaces.space_200,
             ),
             Text(
               ref.watch(logConstProvider).btn2,
+              style: AppTheme.of(context).typography.h400,
             ),
           ],
         ));

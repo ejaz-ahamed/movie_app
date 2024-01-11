@@ -4,6 +4,7 @@ import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/core/widgets/elevatedbtn_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
+import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/loginbutton_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/textfield_widget.dart';
 
@@ -39,6 +40,9 @@ class LoginPage extends ConsumerWidget {
                     style: AppTheme.of(context).typography.h500,
                   ),
                   TextFieldWidget(
+                      controller: ref
+                          .read(authenticationProvider.notifier)
+                          .emailController,
                       text: ref.watch(logConstProvider).textfield1text),
                   SizedBox(
                     height: AppTheme.of(context).spaces.space_150,
@@ -48,11 +52,17 @@ class LoginPage extends ConsumerWidget {
                     style: AppTheme.of(context).typography.h500,
                   ),
                   TextFieldWidget(
+                      controller: ref
+                          .read(authenticationProvider.notifier)
+                          .passwordController,
                       text: ref.watch(logConstProvider).textfield2text),
                   SizedBox(
                     height: AppTheme.of(context).spaces.space_300 * 2,
                   ),
                   const LoginButtonWidget(),
+                  SizedBox(
+                    height: AppTheme.of(context).spaces.space_150,
+                  ),
                   const ElevatedButtonWidgetConst(),
                   SizedBox(
                     height: AppTheme.of(context).spaces.space_500,
