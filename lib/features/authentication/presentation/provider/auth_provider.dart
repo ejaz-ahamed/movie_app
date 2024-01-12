@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:movie_app_auth/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:movie_app_auth/features/authentication/domain/repository/auth_repository.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signin_usecase.dart';
+import 'package:movie_app_auth/features/authentication/domain/usecases/signout_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signup_usecase.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -47,5 +48,9 @@ class Authentication extends _$Authentication {
 
   Future<UserCredential> signInWithEmail(String email, String password) async {
     return SigninUsecase(repository: repository)(email, password);
+  }
+
+  Future<void> signout() {
+    return SignOutUseCase(repository: repository)();
   }
 }

@@ -9,6 +9,7 @@ class SignUpConstants {
   final textfieldtext = "Enter your Name";
   final textfield2 = "  Phone No:";
   final textfield2text = "Enter your Number";
+  final signout = 'Sign Out';
 }
 
 @riverpod

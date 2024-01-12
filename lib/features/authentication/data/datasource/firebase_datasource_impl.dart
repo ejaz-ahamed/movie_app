@@ -20,6 +20,11 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
   Future<UserCredential> signInWithEmail(String email, String password) {
     return _auth.signInWithEmailAndPassword(email: email, password: password);
   }
+
+  @override
+  Future<void> signOut() async {
+    return _auth.signOut();
+  }
 }
 
 @riverpod

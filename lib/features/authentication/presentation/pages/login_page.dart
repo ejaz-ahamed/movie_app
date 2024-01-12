@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/core/widgets/elevatedbtn_widget.dart';
@@ -9,6 +10,7 @@ import 'package:movie_app_auth/features/authentication/presentation/widgets/logi
 import 'package:movie_app_auth/features/authentication/presentation/widgets/textfield_widget.dart';
 
 class LoginPage extends ConsumerWidget {
+  static const routePath = '/login';
   const LoginPage({super.key});
 
   @override
@@ -76,11 +78,7 @@ class LoginPage extends ConsumerWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUpPage(),
-                              ));
+                          context.go(SignUpPage.routePath);
                         },
                         child: Text(
                           ref.watch(logConstProvider).link,
