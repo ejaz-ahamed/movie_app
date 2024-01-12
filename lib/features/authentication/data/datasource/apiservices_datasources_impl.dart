@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app_auth/core/constants/api_constants.dart';
 import 'package:movie_app_auth/features/authentication/data/datasource/apiservices_datasource.dart';
 import 'package:movie_app_auth/features/authentication/data/model/movieapi_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,8 +8,7 @@ part 'apiservices_datasources_impl.g.dart';
 
 class ApiServicesDataSourceImpl implements ApiServicesDataSource {
   static final dio = Dio();
-  static const token =
-      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTFjM2VhZjVlOTQ1OGRlZmE5MDY5NWIzNWM2YWFmMCIsInN1YiI6IjY1ODE4YjQyYmYwZjYzMDg5MzYyYTQzNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._RBNpkOPbuEhq53S9WsNL15hqIUy0YIZD87rCS4jSrU';
+  final token = ApiConstants.token;
   @override
   Future<MovieModel?> getMovies() async {
     dio.options.headers['Authorization'] = 'Bearer $token';
@@ -19,6 +19,6 @@ class ApiServicesDataSourceImpl implements ApiServicesDataSource {
 }
 
 @riverpod
- ApiServicesDataSource apiDataSource(ApiDataSourceRef ref) {
+ApiServicesDataSource apiDataSource(ApiDataSourceRef ref) {
   return ApiServicesDataSourceImpl();
 }

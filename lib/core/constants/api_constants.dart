@@ -1,0 +1,4 @@
+class ApiConstants {
+  static const token =
+      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTFjM2VhZjVlOTQ1OGRlZmE5MDY5NWIzNWM2YWFmMCIsInN1YiI6IjY1ODE4YjQyYmYwZjYzMDg5MzYyYTQzNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._RBNpkOPbuEhq53S9WsNL15hqIUy0YIZD87rCS4jSrU';
+}
