@@ -43,7 +43,7 @@ class LoginPage extends ConsumerWidget {
                   ),
                   TextFieldWidget(
                       controller: ref
-                          .read(authenticationProvider.notifier)
+                          .read(authenticationProvider(context).notifier)
                           .emailController,
                       text: ref.watch(logConstProvider).textfield1text),
                   SizedBox(
@@ -55,7 +55,7 @@ class LoginPage extends ConsumerWidget {
                   ),
                   TextFieldWidget(
                       controller: ref
-                          .read(authenticationProvider.notifier)
+                          .read(authenticationProvider(context).notifier)
                           .passwordController,
                       text: ref.watch(logConstProvider).textfield2text),
                   SizedBox(

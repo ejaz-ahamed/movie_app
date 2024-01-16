@@ -12,9 +12,9 @@ class LoginButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.read(authenticationProvider.notifier).emailController;
+    final email = ref.read(authenticationProvider(context).notifier).emailController;
     final password =
-        ref.read(authenticationProvider.notifier).passwordController;
+        ref.read(authenticationProvider(context).notifier).passwordController;
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppTheme.of(context).colors.backgroundDanger,
@@ -25,7 +25,7 @@ class LoginButtonWidget extends ConsumerWidget {
         onPressed: () {
           if (FirebaseAuth.instance.currentUser == null) {
             ref
-                .read(authenticationProvider.notifier)
+                .read(authenticationProvider(context).notifier)
                 .signInWithEmail(email.text, password.text);
           } else {
             context.go(HomePage.routePath);

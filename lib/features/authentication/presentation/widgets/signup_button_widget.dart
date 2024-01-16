@@ -11,9 +11,9 @@ class SignUpButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.read(authenticationProvider.notifier).emailController;
+    final email = ref.read(authenticationProvider(context).notifier).emailController;
     final password =
-        ref.read(authenticationProvider.notifier).passwordController;
+        ref.read(authenticationProvider(context).notifier).passwordController;
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppTheme.of(context).colors.backgroundDanger,
@@ -22,11 +22,11 @@ class SignUpButtonWidget extends ConsumerWidget {
               vertical: AppTheme.of(context).spaces.space_150),
         ),
         onPressed: () {
-          ref.read(authenticationProvider.notifier).signUpWithEmail(
+          ref.read(authenticationProvider(context).notifier).signUpWithEmail(
                 email.text,
                 password.text,
               );
-          ref.read(authenticationProvider.notifier).clear();
+          ref.read(authenticationProvider(context).notifier).clear();
         },
         child: Text(
           ref.watch(logConstProvider).link,

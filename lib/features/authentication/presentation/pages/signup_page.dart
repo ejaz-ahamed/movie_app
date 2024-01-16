@@ -43,7 +43,7 @@ class SignUpPage extends ConsumerWidget {
                   ),
                   TextFieldWidget(
                       controller: ref
-                          .read(authenticationProvider.notifier)
+                          .read(authenticationProvider(context).notifier)
                           .nameController,
                       text: ref.watch(signConstProvider).textfieldtext),
                   SizedBox(
@@ -55,7 +55,7 @@ class SignUpPage extends ConsumerWidget {
                   ),
                   TextFieldWidget(
                       controller: ref
-                          .read(authenticationProvider.notifier)
+                          .read(authenticationProvider(context).notifier)
                           .mobileController,
                       text: ref.watch(signConstProvider).textfield2text),
                   SizedBox(
@@ -67,7 +67,7 @@ class SignUpPage extends ConsumerWidget {
                   ),
                   TextFieldWidget(
                       controller: ref
-                          .watch(authenticationProvider.notifier)
+                          .watch(authenticationProvider(context).notifier)
                           .emailController,
                       text: ref.watch(logConstProvider).textfield1text),
                   SizedBox(
@@ -79,7 +79,7 @@ class SignUpPage extends ConsumerWidget {
                   ),
                   TextFieldWidget(
                       controller: ref
-                          .watch(authenticationProvider.notifier)
+                          .watch(authenticationProvider(context).notifier)
                           .passwordController,
                       text: ref.watch(logConstProvider).textfield2text),
                   SizedBox(

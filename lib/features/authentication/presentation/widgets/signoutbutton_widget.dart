@@ -14,10 +14,10 @@ class SignOutButtonWidget extends ConsumerWidget {
     return ElevatedButton(
         onPressed: () {
           if (FirebaseAuth.instance.currentUser != null) {
-            ref.read(authenticationProvider.notifier).signout();
+            ref.read(authenticationProvider(context).notifier).signout();
             context.go(LoginPage.routePath);
           }
-        },
+        }, 
         child: Text(ref.watch(signConstProvider).signout));
   }
 }

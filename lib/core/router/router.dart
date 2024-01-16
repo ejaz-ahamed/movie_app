@@ -3,8 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/home_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/login_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final router = GoRouter(
+part 'router.g.dart';
+
+final _router = GoRouter(
   initialLocation: HomePage.routePath,
   routes: [
     GoRoute(
@@ -27,3 +30,8 @@ final router = GoRouter(
     ),
   ],
 );
+
+@riverpod
+GoRouter router(RouterRef ref) {
+  return _router;
+}

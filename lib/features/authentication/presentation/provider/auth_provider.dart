@@ -1,10 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_app_auth/core/exceptions/base_exception.dart';
+import 'package:movie_app_auth/core/utils/show_snackbar.dart';
 import 'package:movie_app_auth/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:movie_app_auth/features/authentication/domain/repository/auth_repository.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signin_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signout_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signup_usecase.dart';
+import 'package:movie_app_auth/features/authentication/presentation/pages/home_page.dart';
+import 'package:movie_app_auth/features/authentication/presentation/pages/login_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_provider.g.dart';
@@ -17,7 +21,8 @@ class Authentication extends _$Authentication {
   late final TextEditingController passwordController;
   late final AuthRepository repository;
   @override
-  void build() {
+  void build(BuildContext context) {
+    this.context = context;
     nameController = TextEditingController();
     mobileController = TextEditingController();
     emailController = TextEditingController();
@@ -42,15 +47,30 @@ class Authentication extends _$Authentication {
     passwordController.clear();
   }
 
-  Future<UserCredential> signUpWithEmail(String email, String password) async {
-    return SignupUsecase(repository: repository)(email, password);
+  Future<void> signUpWithEmail(String email, String password) async {
+    try {
+      await SignupUsecase(repository: repository)(email, password);
+      Future.sync(() => context.go(HomePage.routePath));
+    } on BaseException catch (e) {
+      Future.sync(() => SnackbarUtils.showSnackBar(context, e.message));
+    }
   }
 
-  Future<UserCredential> signInWithEmail(String email, String password) async {
-    return SigninUsecase(repository: repository)(email, password);
+  Future<void> signInWithEmail(String email, String password) async {
+    try {
+      SigninUsecase(repository: repository)(email, password);
+      Future.sync(() => context.go(HomePage.routePath));
+    } on BaseException catch (e) {
+      Future.sync(() => SnackbarUtils.showSnackBar(context, e.message));
+    }
   }
 
-  Future<void> signout() {
-    return SignOutUseCase(repository: repository)();
+  Future<void> signout() async {
+    try {
+      await SignOutUseCase(repository: repository)();
+      Future.sync(() => context.go(LoginPage.routePath));
+    } on BaseException catch (e) {
+      Future.sync(() => SnackbarUtils.showSnackBar(context, e.message));
+    }
   }
 }

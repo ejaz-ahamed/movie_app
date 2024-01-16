@@ -12,7 +12,10 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.dataSource});
 
   @override
-  Future<UserCredential> signUpWithEmail(String email, String password) {
+  Future<UserCredential> signUpWithEmail(
+    String email,
+    String password,
+  ) {
     return dataSource.signUpWithEmail(email, password);
   }
 

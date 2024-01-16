@@ -20,7 +20,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       theme: ref.watch(lightThemeProvider),
     );
   }
