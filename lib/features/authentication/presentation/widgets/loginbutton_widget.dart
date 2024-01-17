@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,13 +7,15 @@ import 'package:movie_app_auth/features/authentication/presentation/pages/home_p
 import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 
 class LoginButtonWidget extends ConsumerWidget {
-  const LoginButtonWidget({super.key});
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  const LoginButtonWidget(
+      {super.key,
+      required this.emailController,
+      required this.passwordController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.read(authenticationProvider(context).notifier).emailController;
-    final password =
-        ref.read(authenticationProvider(context).notifier).passwordController;
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppTheme.of(context).colors.backgroundDanger,
@@ -23,20 +24,19 @@ class LoginButtonWidget extends ConsumerWidget {
               vertical: AppTheme.of(context).spaces.space_150),
         ),
         onPressed: () {
-          if (FirebaseAuth.instance.currentUser == null) {
-            ref
-                .read(authenticationProvider(context).notifier)
-                .signInWithEmail(email.text, password.text);
-          } else {
-            context.go(HomePage.routePath);
-          }
+          ref
+              .read(authenticationProvider(context).notifier)
+              .signInWithEmail(emailController.text, passwordController.text);
+          context.go(HomePage.routePath);
         },
-        child: Text(
-          ref.watch(logConstProvider).btn1,
-          style: AppTheme.of(context)
-              .typography
-              .h500
-              .copyWith(color: Colors.white),
-        ));
+        child: ref.watch(authenticationProvider(context))
+            ? const CircularProgressIndicator()
+            : Text(
+                ref.watch(logConstProvider).btn1,
+                style: AppTheme.of(context)
+                    .typography
+                    .h500
+                    .copyWith(color: Colors.white),
+              ));
   }
 }

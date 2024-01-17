@@ -1,6 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:movie_app_auth/core/exceptions/auth/auth_failed_exception.dart';
 import 'package:movie_app_auth/core/exceptions/auth/invalid_credential_exception.dart';
-import 'package:movie_app_auth/core/exceptions/auth/signin_exception.dart';
 import 'package:movie_app_auth/features/authentication/domain/repository/auth_repository.dart';
 
 final class SigninUsecase {
@@ -13,8 +12,9 @@ final class SigninUsecase {
     }
     try {
       await repository.signInWithEmail(email, password);
-    } on FirebaseAuthException catch (e) {
-      throw SigninException(e.message ?? "Sign up failed please retry", e.code);
+    } on Exception {
+      throw AuthenticationFailedException(
+          "Something Went Wrong! Please try again...");
     }
   }
 }

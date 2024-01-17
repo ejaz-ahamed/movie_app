@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 
-class SignUpButtonWidget extends ConsumerWidget {
-  const SignUpButtonWidget({
-    super.key,
-  });
+class SignUpButtonWidget extends HookConsumerWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  const SignUpButtonWidget(
+      {super.key,
+      required this.emailController,
+      required this.passwordController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.read(authenticationProvider(context).notifier).emailController;
-    final password =
-        ref.read(authenticationProvider(context).notifier).passwordController;
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppTheme.of(context).colors.backgroundDanger,
@@ -23,10 +23,9 @@ class SignUpButtonWidget extends ConsumerWidget {
         ),
         onPressed: () {
           ref.read(authenticationProvider(context).notifier).signUpWithEmail(
-                email.text,
-                password.text,
+                emailController.text,
+                passwordController.text,
               );
-          ref.read(authenticationProvider(context).notifier).clear();
         },
         child: Text(
           ref.watch(logConstProvider).link,

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/core/widgets/elevatedbtn_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
-import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/loginbutton_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/textfield_widget.dart';
 
-class LoginPage extends ConsumerWidget {
+class LoginPage extends HookConsumerWidget {
   static const routePath = '/login';
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+  final TextEditingController emailController = useTextEditingController();
+  final TextEditingController passwordController = useTextEditingController();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -42,9 +44,7 @@ class LoginPage extends ConsumerWidget {
                     style: AppTheme.of(context).typography.h500,
                   ),
                   TextFieldWidget(
-                      controller: ref
-                          .read(authenticationProvider(context).notifier)
-                          .emailController,
+                      controller: emailController,
                       text: ref.watch(logConstProvider).textfield1text),
                   SizedBox(
                     height: AppTheme.of(context).spaces.space_150,
@@ -54,14 +54,15 @@ class LoginPage extends ConsumerWidget {
                     style: AppTheme.of(context).typography.h500,
                   ),
                   TextFieldWidget(
-                      controller: ref
-                          .read(authenticationProvider(context).notifier)
-                          .passwordController,
+                      controller: passwordController,
                       text: ref.watch(logConstProvider).textfield2text),
                   SizedBox(
                     height: AppTheme.of(context).spaces.space_300 * 2,
                   ),
-                  const LoginButtonWidget(),
+                  LoginButtonWidget(
+                    emailController: emailController,
+                    passwordController: passwordController,
+                  ),
                   SizedBox(
                     height: AppTheme.of(context).spaces.space_150,
                   ),

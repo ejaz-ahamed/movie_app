@@ -23,15 +23,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -65,5 +59,25 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1077549455205',
     projectId: 'movie-app-598b0',
     storageBucket: 'movie-app-598b0.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyD-SiAeraCS-DUJhV3ErQA0-PmWY-xZ2TM',
+    appId: '1:1077549455205:ios:95b63ffe2c2332cca9f38c',
+    messagingSenderId: '1077549455205',
+    projectId: 'movie-app-598b0',
+    storageBucket: 'movie-app-598b0.appspot.com',
+    iosClientId: '1077549455205-6uorporur2bce4bk2enmhvaduorgh1ct.apps.googleusercontent.com',
+    iosBundleId: 'com.example.movieAppAuth',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyD-SiAeraCS-DUJhV3ErQA0-PmWY-xZ2TM',
+    appId: '1:1077549455205:ios:71784fa6568139c3a9f38c',
+    messagingSenderId: '1077549455205',
+    projectId: 'movie-app-598b0',
+    storageBucket: 'movie-app-598b0.appspot.com',
+    iosClientId: '1077549455205-jviu19crf62u2harmp7lsecf83srb9au.apps.googleusercontent.com',
+    iosBundleId: 'com.example.movieAppAuth.RunnerTests',
   );
 }

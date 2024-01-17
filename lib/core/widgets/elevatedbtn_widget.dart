@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
+import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 
 class ElevatedButtonWidgetConst extends ConsumerWidget {
   const ElevatedButtonWidgetConst({super.key});
@@ -15,7 +16,9 @@ class ElevatedButtonWidgetConst extends ConsumerWidget {
           padding: EdgeInsets.symmetric(
               vertical: AppTheme.of(context).spaces.space_100),
         ),
-        onPressed: () {},
+        onPressed: () {
+          ref.read(authenticationProvider(context).notifier).signinWithGoogle();
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
