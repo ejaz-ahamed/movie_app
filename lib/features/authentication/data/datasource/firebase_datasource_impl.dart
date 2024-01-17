@@ -50,7 +50,8 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
 
   @override
   Future<void> signOut() async {
-    return _auth.signOut();
+    await GoogleSignIn().signOut();
+    await _auth.signOut();
   }
 
   @override

@@ -12,6 +12,7 @@ class LoginConstants {
   final btn1 = "Login";
   final btn2 = "Sign in with Google";
   final text = "Don't have an account?";
+  final appName = 'FilmyBeatZ';
   final link = "  Sign Up";
   final logolink =
       "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png";
