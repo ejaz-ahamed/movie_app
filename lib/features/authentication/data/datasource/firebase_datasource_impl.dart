@@ -65,20 +65,20 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
-      if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken,
-          idToken: googleAuth?.idToken,
-        );
-        await _auth.signInWithCredential(credential);
+      // if (googleAuth?.accessToken != null && googleAuth?.idToken != null) {
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      await _auth.signInWithCredential(credential);
 
-        // UserCredential userCredential =
-        //     await _auth.signInWithCredential(credential);
+      // UserCredential userCredential =
+      //     await _auth.signInWithCredential(credential);
 
-        // if (userCredential.user != null) {
-        //   if (userCredential.additionalUserInfo!.isNewUser) {}
-        // }
-      }
+      // if (userCredential.user != null) {
+      //   if (userCredential.additionalUserInfo!.isNewUser) {}
+      // }
+      // }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthenticationFailedException('Wrong email address');
@@ -90,6 +90,11 @@ class FireBaseAuthMethodsImpl implements FireBaseAuthMethods {
         throw AuthenticationFailedException('Cannot login. Please try again');
       }
     }
+  }
+
+  @override
+  Future<void> forgetPassword(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
 }
 

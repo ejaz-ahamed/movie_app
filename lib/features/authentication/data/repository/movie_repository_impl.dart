@@ -18,11 +18,13 @@ class MovieRepositoryImpl implements MovieRepository {
     results = [
       for (final result in ds.results)
         MovieEntity(
-            originalTitle: result.originalTitle,
-            overview: result.overview,
-            posterPath: result.posterPath,
-            title: result.title,
-            voteAverage: result.voteAverage)
+          originalTitle: result.originalTitle,
+          overview: result.overview,
+          posterPath: result.posterPath,
+          title: result.title,
+          voteAverage: result.voteAverage,
+          releaseDate: result.releaseDate,
+        )
     ];
     return results;
   }

@@ -14,6 +14,9 @@ class LoginConstants {
   final text = "Don't have an account?";
   final appName = 'FilmyBeatZ';
   final link = "  Sign Up";
+  final forget = "Forget password ?";
+  final phonetitle = "Login With Phone";
+  final phoneSubtitle = "Enter Your Mobile Details";
   final logolink =
       "https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png";
 }

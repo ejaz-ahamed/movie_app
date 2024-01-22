@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_app_auth/core/constants/api_constants.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
-import 'package:movie_app_auth/features/authentication/domain/entity/movie_entity.dart';
+import 'package:movie_app_auth/features/authentication/presentation/pages/sec_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/provider/movie_provider.dart';
-import 'package:movie_app_auth/features/authentication/presentation/widgets/sec_page_widget.dart';
+import 'package:movie_app_auth/features/authentication/presentation/widgets/listview_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/signoutbutton_widget.dart';
-
-const imagePath = 'https://image.tmdb.org/t/p/original';
 
 class HomePage extends ConsumerWidget {
   static const routePath = '/';
+  final imagePath = ApiConstants.imagePath;
   const HomePage({super.key});
 
   @override
@@ -44,50 +44,15 @@ class HomePage extends ConsumerWidget {
                       width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).height / 2.5,
                       color: const Color.fromARGB(255, 42, 47, 51),
-                      child: ListView.builder(
-                        itemCount: value.length,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: InkWell(
-                                onTap: () {
-                                  context.push(MyHerp.routePath,
-                                      extra: (MovieEntity));
-                                },
-                                child: Container(
-                                  height: 100,
-                                  color: Colors.grey.shade800,
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: [
-                                      Expanded(
-                                        child: Image.network(
-                                          '$imagePath${value[index].posterPath}',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 150,
-                                        child: Center(
-                                          child: Text(
-                                            value[index].title,
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                      child: ListViewWidget(
+                          value: value,
+                          imagePath: imagePath,
+                          height: 100,
+                          height2: null,
+                          width: 150,
+                          width2: null,
+                          boxFit: BoxFit.cover,
+                          axis: Axis.horizontal),
                     ),
                   ),
                 ),
@@ -102,7 +67,6 @@ class HomePage extends ConsumerWidget {
                       child: ListView.builder(
                         itemCount: value.length,
                         shrinkWrap: true,
-                        // scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -110,8 +74,8 @@ class HomePage extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(10),
                               child: InkWell(
                                 onTap: () {
-                                  context.push(MyHerp.routePath,
-                                      extra: (MovieEntity));
+                                  context.push(OverViewPage.routePath,
+                                      extra: value[index]);
                                 },
                                 child: Container(
                                   height: 300,
@@ -142,7 +106,7 @@ class HomePage extends ConsumerWidget {
                                             value[index].title,
                                             style: const TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 19),
+                                                fontSize: 18),
                                           ),
                                         ),
                                       )
@@ -160,11 +124,13 @@ class HomePage extends ConsumerWidget {
               ],
             ),
           ),
-        AsyncError(:final error) => Text(
-            'Error: $error',
-            style: const TextStyle(color: Colors.white),
+        AsyncError(:final error) => Center(
+            child: Text(
+              'Error: $error',
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
-        _ => const CircularProgressIndicator(),
+        _ => const Center(child: CircularProgressIndicator()),
       },
     );
   }

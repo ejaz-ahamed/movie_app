@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app_auth/features/authentication/domain/entity/movie_entity.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/home_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/login_page.dart';
+import 'package:movie_app_auth/features/authentication/presentation/pages/mobileauth_page.dart';
+import 'package:movie_app_auth/features/authentication/presentation/pages/sec_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
-import 'package:movie_app_auth/features/authentication/presentation/widgets/sec_page_widget.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -32,9 +33,13 @@ final _router = GoRouter(
       builder: (context, state) => const SignUpPage(),
     ),
     GoRoute(
-      path: MyHerp.routePath,
-      builder: (context, state) => MyHerp(
-        modelData: (state.extra as (MovieEntity,)).$1,
+      path: MobileAuthPage.routePath,
+      builder: (context, state) => const MobileAuthPage(),
+    ),
+    GoRoute(
+      path: OverViewPage.routePath,
+      builder: (context, state) => OverViewPage(
+        entity: state.extra as MovieEntity,
       ),
     ),
   ],

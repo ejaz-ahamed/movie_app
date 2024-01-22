@@ -39,6 +39,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signInWithGoogle(BuildContext context) async {
     return await dataSource.signInWithGoogle(context);
   }
+
+  @override
+  Future<void> forgetPassword(String email) async {
+    return await dataSource.forgetPassword(email);
+  }
 }
 
 @riverpod

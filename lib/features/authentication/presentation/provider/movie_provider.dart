@@ -10,9 +10,8 @@ part 'movie_provider.g.dart';
 class Movie extends _$Movie {
   late final MovieRepository repository;
   @override
-  Future<List<MovieEntity>> build() async{
+  Future<List<MovieEntity>> build() async {
     repository = ref.watch(movieRepositoryProvider);
     return GetMoviesUseCase(repository: repository)();
   }
-
 }

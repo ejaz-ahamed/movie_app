@@ -4,6 +4,7 @@ import 'package:movie_app_auth/core/exceptions/base_exception.dart';
 import 'package:movie_app_auth/core/utils/show_snackbar.dart';
 import 'package:movie_app_auth/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:movie_app_auth/features/authentication/domain/repository/auth_repository.dart';
+import 'package:movie_app_auth/features/authentication/domain/usecases/forgetpassword_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/sendemail_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signin_google_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signin_usecase.dart';
@@ -53,6 +54,14 @@ class Authentication extends _$Authentication {
     }
   }
 
+  Future<void> forgetPassword(String email) async {
+    try {
+      await ForgetPasswordUseCase(repository: repository)(email);
+    } on BaseException catch (e) {
+      Future.sync(() => SnackbarUtils.showSnackBar(context, e.message));
+    }
+  }
+
   Future<void> signout() async {
     try {
       await SignOutUseCase(repository: repository)();
@@ -67,8 +76,7 @@ class Authentication extends _$Authentication {
       await SignInWithGoogleUseCase(repository: repository)(context);
       Future.sync(() => context.go(HomePage.routePath));
     } on BaseException catch (e) {
-      Future.sync(() => SnackbarUtils.showSnackBar(context, 
-      e.message));
+      Future.sync(() => SnackbarUtils.showSnackBar(context, e.message));
     }
   }
 }

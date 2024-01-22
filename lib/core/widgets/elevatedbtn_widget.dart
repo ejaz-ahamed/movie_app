@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
-import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 
 class ElevatedButtonWidgetConst extends ConsumerWidget {
-  const ElevatedButtonWidgetConst({super.key});
+  final void Function()? onPressed;
+  final Widget logoLink;
+  final String text;
+  const ElevatedButtonWidgetConst({
+    super.key,
+    required this.onPressed,
+    required this.logoLink,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,21 +22,16 @@ class ElevatedButtonWidgetConst extends ConsumerWidget {
           padding: EdgeInsets.symmetric(
               vertical: AppTheme.of(context).spaces.space_100),
         ),
-        onPressed: () {
-          ref.read(authenticationProvider(context).notifier).signinWithGoogle();
-        },
+        onPressed: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              ref.watch(logConstProvider).logolink,
-              width: AppTheme.of(context).spaces.space_400,
-            ),
+            logoLink,
             SizedBox(
               width: AppTheme.of(context).spaces.space_200,
             ),
             Text(
-              ref.watch(logConstProvider).btn2,
+              text,
               style: AppTheme.of(context).typography.h400,
             ),
           ],
