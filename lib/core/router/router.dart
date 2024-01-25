@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movie_app_auth/features/authentication/domain/entity/movie_entity.dart';
-import 'package:movie_app_auth/features/authentication/presentation/pages/home_page.dart';
+import 'package:movie_app_auth/features/api/domain/entity/movie_entity.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/home_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/login_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/mobileauth_page.dart';
-import 'package:movie_app_auth/features/authentication/presentation/pages/sec_page.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/sec_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

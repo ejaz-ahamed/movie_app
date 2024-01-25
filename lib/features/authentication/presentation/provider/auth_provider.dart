@@ -10,7 +10,7 @@ import 'package:movie_app_auth/features/authentication/domain/usecases/signin_go
 import 'package:movie_app_auth/features/authentication/domain/usecases/signin_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signout_usecase.dart';
 import 'package:movie_app_auth/features/authentication/domain/usecases/signup_usecase.dart';
-import 'package:movie_app_auth/features/authentication/presentation/pages/home_page.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/home_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/login_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

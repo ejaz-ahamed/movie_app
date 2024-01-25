@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app_auth/core/constants/api_constants.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
-import 'package:movie_app_auth/features/authentication/presentation/pages/sec_page.dart';
-import 'package:movie_app_auth/features/authentication/presentation/provider/movie_provider.dart';
-import 'package:movie_app_auth/features/authentication/presentation/widgets/listview_widget.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/sec_page.dart';
+import 'package:movie_app_auth/features/api/presentation/provider/movie_provider.dart';
+import 'package:movie_app_auth/features/api/presentation/widgets/corousel_slider_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/signoutbutton_widget.dart';
 
 class HomePage extends ConsumerWidget {
@@ -43,16 +43,8 @@ class HomePage extends ConsumerWidget {
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).height / 2.5,
-                      color: const Color.fromARGB(255, 42, 47, 51),
-                      child: ListViewWidget(
-                          value: value,
-                          imagePath: imagePath,
-                          height: 100,
-                          height2: null,
-                          width: 150,
-                          width2: null,
-                          boxFit: BoxFit.cover,
-                          axis: Axis.horizontal),
+                      color: const Color.fromARGB(255, 49, 42, 51),
+                      child: CarouselWidget(list: value.getMovies),
                     ),
                   ),
                 ),
@@ -65,7 +57,7 @@ class HomePage extends ConsumerWidget {
                       height: 400,
                       color: const Color.fromARGB(255, 17, 6, 6),
                       child: ListView.builder(
-                        itemCount: value.length,
+                        itemCount: value.getMovies.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return Padding(
@@ -75,7 +67,7 @@ class HomePage extends ConsumerWidget {
                               child: InkWell(
                                 onTap: () {
                                   context.push(OverViewPage.routePath,
-                                      extra: value[index]);
+                                      extra: value.getMovies[index]);
                                 },
                                 child: Container(
                                   height: 300,
@@ -91,7 +83,7 @@ class HomePage extends ConsumerWidget {
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           child: Image.network(
-                                            '$imagePath${value[index].posterPath}',
+                                            '$imagePath${value.getMovies[index].posterPath}',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -103,7 +95,7 @@ class HomePage extends ConsumerWidget {
                                         width: 250,
                                         child: Center(
                                           child: Text(
-                                            value[index].title,
+                                            value.getMovies[index].title,
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 18),

@@ -46,6 +46,7 @@ dependencies:
   flutter_hooks: ^0.20.4
   hooks_riverpod: ^2.4.9
   google_sign_in: ^6.1.6
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

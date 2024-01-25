@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
-import 'package:movie_app_auth/features/authentication/presentation/pages/home_page.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/home_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 
 class LoginButtonWidget extends ConsumerWidget {

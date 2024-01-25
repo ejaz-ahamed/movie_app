@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: "36a321c3d2cbe01cbcb3540a87b8843846e0206df3e691fa7b23e19e78de6d49"
+      sha256: "0f7b1783ddb1e4600580b8c00d0ddae5b06ae7f0382bd4fcce5db4df97b618e1"
       url: "https://pub.dev"
     source: hosted
-    version: "65.0.0"
+    version: "66.0.0"
   _flutterfire_internals:
     dependency: transitive
     description:
@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: dfe03b90ec022450e22513b5e5ca1f01c0c01de9c3fba2f7fd233cb57a6b9a07
+      sha256: "5e8bdcda061d91da6b034d64d8e4026f355bcb8c3e7a0ac2da1523205a91a737"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.0"
+    version: "6.4.0"
   analyzer_plugin:
     dependency: transitive
     description:
@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.8.1"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.1"
   characters:
     dependency: transitive
     description:
@@ -524,26 +532,26 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: e45c31f458d01fd9ef4a214feb2e153b72d5b1907435f4332b1637a2f348c021
+      sha256: f8cdf1383f5b4672a2693d875f1f239af6bd7e4a8925a17ef7219226db932624
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.18"
+    version: "10.0.1"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
-      sha256: "54808cfcfa87dbc0d74c61ac063d624adf1bd5c0407301f32b06c783c60dc4ca"
+      sha256: a2055640bf5bc903475e4bbdb34e04f8bf698542bee41edec47d337a5939e1ae
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.3"
   leak_tracker_testing:
     dependency: transitive
     description:
       name: leak_tracker_testing
-      sha256: "7e71be3c161472f6c9158ac8875dd8de575060d60b5d159ebca3600ea32c9116"
+      sha256: e62042d479c4c139dd774125ed4dfbde646b8f07ac228e3c1b57a3d91d6d9df4
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "2.0.2"
   lints:
     dependency: transitive
     description:
@@ -871,4 +879,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.3.0-273.0.dev <4.0.0"
-  flutter: ">=3.16.0"
+  flutter: ">=3.18.0-18.0.pre.54"

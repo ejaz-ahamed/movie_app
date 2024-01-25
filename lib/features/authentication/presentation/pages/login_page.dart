@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/core/widgets/elevatedbtn_widget.dart';
-import 'package:movie_app_auth/features/authentication/presentation/pages/home_page.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/home_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/mobileauth_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
