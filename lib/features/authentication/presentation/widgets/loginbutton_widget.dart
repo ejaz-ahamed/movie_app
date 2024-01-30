@@ -17,26 +17,22 @@ class LoginButtonWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppTheme.of(context).colors.backgroundDanger,
-          padding: EdgeInsets.symmetric(
-              horizontal: AppTheme.of(context).spaces.space_800 * 2,
-              vertical: AppTheme.of(context).spaces.space_150),
-        ),
-        onPressed: () {
-          ref
-              .read(authenticationProvider(context).notifier)
-              .signInWithEmail(emailController.text, passwordController.text);
-          context.go(HomePage.routePath);
-        },
-        child: ref.watch(authenticationProvider(context))
-            ? const CircularProgressIndicator()
-            : Text(
-                ref.watch(logConstProvider).btn1,
-                style: AppTheme.of(context)
-                    .typography
-                    .h500
-                    .copyWith(color: Colors.white),
-              ));
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppTheme.of(context).colors.backgroundDanger,
+        padding: EdgeInsets.symmetric(
+            horizontal: AppTheme.of(context).spaces.space_800 * 2,
+            vertical: AppTheme.of(context).spaces.space_150),
+      ),
+      onPressed: () {
+        ref.read(authenticationProvider.notifier).signInWithEmail(
+            emailController.text, passwordController.text, context);
+        context.go(HomePage.routePath);
+      },
+      child: Text(
+        ref.watch(logConstProvider).btn1,
+        style:
+            AppTheme.of(context).typography.h500.copyWith(color: Colors.white),
+      ),
+    );
   }
 }

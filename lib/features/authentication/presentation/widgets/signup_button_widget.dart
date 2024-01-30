@@ -22,9 +22,10 @@ class SignUpButtonWidget extends HookConsumerWidget {
               vertical: AppTheme.of(context).spaces.space_150),
         ),
         onPressed: () {
-          ref.read(authenticationProvider(context).notifier).signUpWithEmail(
+          ref.read(authenticationProvider.notifier).signUpWithEmail(
                 emailController.text,
                 passwordController.text,
+                context,
               );
         },
         child: Text(

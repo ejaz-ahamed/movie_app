@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/core/constants/signup_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
+import 'package:movie_app_auth/features/authentication/presentation/provider/auth_provider.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/textfield_widget.dart';
 
 class MobileAuthPage extends HookConsumerWidget {
@@ -51,7 +52,11 @@ class MobileAuthPage extends HookConsumerWidget {
                     height: AppTheme.of(context).spaces.space_800,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref
+                            .read(authenticationProvider.notifier)
+                            .signInWithPhone(context, mobileController.text);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                         padding: EdgeInsets.symmetric(

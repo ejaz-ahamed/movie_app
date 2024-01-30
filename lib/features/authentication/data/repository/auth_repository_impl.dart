@@ -44,6 +44,16 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> forgetPassword(String email) async {
     return await dataSource.forgetPassword(email);
   }
+
+  @override
+  Future<(String, int?)> loginWithPhone(String phone) async {
+    return await dataSource.loginWithPhone(phone);
+  }
+
+  @override
+  Future<void> verifyOtp(String verificationId, String otp) async {
+    await dataSource.verifyOtp(verificationId, otp);
+  }
 }
 
 @riverpod

@@ -7,6 +7,7 @@ import 'package:movie_app_auth/features/authentication/presentation/pages/login_
 import 'package:movie_app_auth/features/authentication/presentation/pages/mobileauth_page.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/sec_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/signup_page.dart';
+import 'package:movie_app_auth/features/authentication/presentation/pages/verifyotp_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -36,6 +37,10 @@ final _router = GoRouter(
     GoRoute(
       path: MobileAuthPage.routePath,
       builder: (context, state) => const MobileAuthPage(),
+    ),
+    GoRoute(
+      path: OtpVerificationPage.routePath,
+      builder: (context, state) => const OtpVerificationPage(),
     ),
     GoRoute(
       path: OverViewPage.routePath,

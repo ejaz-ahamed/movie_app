@@ -15,7 +15,7 @@ class GridViewWidget extends ConsumerWidget {
       itemCount: entity.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          mainAxisExtent: 180,
+          mainAxisExtent: 200,
           mainAxisSpacing: 15,
           crossAxisSpacing: 10),
       itemBuilder: (context, index) => InkWell(

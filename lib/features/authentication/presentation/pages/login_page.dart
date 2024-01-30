@@ -78,8 +78,8 @@ class LoginPage extends HookConsumerWidget {
                       InkWell(
                         onTap: () {
                           ref
-                              .read(authenticationProvider(context).notifier)
-                              .forgetPassword(emailController.text);
+                              .read(authenticationProvider.notifier)
+                              .forgetPassword(emailController.text, context);
                         },
                         child: Text(
                           ref.watch(logConstProvider).forget,
@@ -117,8 +117,8 @@ class LoginPage extends HookConsumerWidget {
                   ElevatedButtonWidgetConst(
                     onPressed: () {
                       ref
-                          .read(authenticationProvider(context).notifier)
-                          .signinWithGoogle();
+                          .read(authenticationProvider.notifier)
+                          .signinWithGoogle(context);
                       context.go(HomePage.routePath);
                     },
                     logoLink: Image.network(
