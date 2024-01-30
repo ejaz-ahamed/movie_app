@@ -9,17 +9,18 @@ class YoutubeButtonWidget extends StatelessWidget {
         onPressed: () {},
         style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFCD201F),
-            padding: const EdgeInsets.symmetric(vertical: 20)),
+            padding: const EdgeInsets.symmetric(vertical: 10)),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.play_arrow_rounded,
               color: Colors.white,
+              size: 40,
             ),
             Text(
               "Play Trailer",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           ],
         ));

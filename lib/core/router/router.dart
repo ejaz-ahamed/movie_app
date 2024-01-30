@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app_auth/features/api/domain/entity/movie_entity.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/favourite_movies_page.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/home_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/login_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/mobileauth_page.dart';
@@ -41,6 +42,10 @@ final _router = GoRouter(
       builder: (context, state) => OverViewPage(
         entity: state.extra as MovieEntity,
       ),
+    ),
+    GoRoute(
+      path: FavouriteMoviesPage.routePath,
+      builder: (context, state) => const FavouriteMoviesPage(),
     ),
   ],
 );

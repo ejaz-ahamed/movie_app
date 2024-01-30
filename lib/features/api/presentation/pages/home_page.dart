@@ -5,6 +5,7 @@ import 'package:movie_app_auth/core/constants/api_constants.dart';
 import 'package:movie_app_auth/core/constants/login_constants.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/sec_page.dart';
 import 'package:movie_app_auth/features/api/presentation/provider/movie_provider.dart';
+import 'package:movie_app_auth/features/api/presentation/widgets/bottomnavigation_widget.dart';
 import 'package:movie_app_auth/features/api/presentation/widgets/corousel_slider_widget.dart';
 import 'package:movie_app_auth/features/authentication/presentation/widgets/signoutbutton_widget.dart';
 
@@ -32,98 +33,116 @@ class HomePage extends ConsumerWidget {
         ),
         actions: const [SignOutButtonWidget()],
       ),
-      body: switch (ref.watch(movieProvider)) {
-        AsyncData(:final value) => SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(1),
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      height: MediaQuery.sizeOf(context).height / 2.5,
-                      color: const Color.fromARGB(255, 49, 42, 51),
-                      child: CarouselWidget(list: value.getMovies),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      width: double.infinity,
-                      height: 400,
-                      color: const Color.fromARGB(255, 17, 6, 6),
-                      child: ListView.builder(
-                        itemCount: value.getMovies.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: InkWell(
-                                onTap: () {
-                                  context.push(OverViewPage.routePath,
-                                      extra: value.getMovies[index]);
+      body: SingleChildScrollView(
+        child: ref.watch(movieProvider).isRefreshing
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : switch (ref.watch(movieProvider)) {
+                AsyncData(:final value) => SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(1),
+                            child: Container(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height / 2.5,
+                              color: const Color.fromARGB(255, 49, 42, 51),
+                              child: CarouselWidget(list: value.getMovies),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              width: double.infinity,
+                              height: 400,
+                              color: const Color.fromARGB(255, 17, 6, 6),
+                              child: ListView.builder(
+                                itemCount: value.getMovies.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          context.push(OverViewPage.routePath,
+                                              extra: value.getMovies[index]);
+                                        },
+                                        child: Container(
+                                          height: 300,
+                                          width: 200,
+                                          color: Colors.grey.shade800,
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                width: 300,
+                                                height: 200,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image.network(
+                                                    '$imagePath${value.getMovies[index].posterPath}',
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              SizedBox(
+                                                width: 250,
+                                                child: Center(
+                                                  child: Text(
+                                                    value
+                                                        .getMovies[index].title,
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 18),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
                                 },
-                                child: Container(
-                                  height: 300,
-                                  width: 200,
-                                  color: Colors.grey.shade800,
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        width: 300,
-                                        height: 200,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.network(
-                                            '$imagePath${value.getMovies[index].posterPath}',
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 250,
-                                        child: Center(
-                                          child: Text(
-                                            value.getMovies[index].title,
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-          ),
-        AsyncError(:final error) => Center(
-            child: Text(
-              'Error: $error',
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
-        _ => const Center(child: CircularProgressIndicator()),
-      },
+                AsyncError(:final error) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Error: $error',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              ref.invalidate(movieProvider);
+                            },
+                            child: const Text('Retry'))
+                      ],
+                    ),
+                  ),
+                _ => const Center(child: CircularProgressIndicator()),
+              },
+      ),
+      bottomNavigationBar: const BottomNavigationBarWidget(),
     );
   }
 }

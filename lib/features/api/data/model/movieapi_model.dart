@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'movieapi_model.freezed.dart';
@@ -7,6 +8,7 @@ part 'movieapi_model.g.dart';
 
 @freezed
 class MovieModel with _$MovieModel {
+  const MovieModel._();
   const factory MovieModel({
     @JsonKey(name: "page") required int page,
     @JsonKey(name: "results") required List<Result> results,
@@ -16,10 +18,23 @@ class MovieModel with _$MovieModel {
 
   factory MovieModel.fromJson(Map<String, dynamic> json) =>
       _$MovieModelFromJson(json);
+
+  factory MovieModel.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data()!;
+    return MovieModel.fromJson(data);
+  }
+  Map<String, dynamic> toFirestore() {
+    return toJson();
+  }
 }
 
 @freezed
 class Result with _$Result {
+  const Result._();
+
   const factory Result({
     @JsonKey(name: "adult") required bool adult,
     @JsonKey(name: "backdrop_path") required String backdropPath,
@@ -38,4 +53,16 @@ class Result with _$Result {
   }) = _Result;
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
+
+  factory Result.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data()!;
+    return Result.fromJson(data);
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return toJson();
+  }
 }

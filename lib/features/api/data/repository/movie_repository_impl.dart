@@ -18,10 +18,12 @@ class MovieRepositoryImpl implements MovieRepository {
     results = [
       for (final result in ds.results)
         MovieEntity(
+          id: result.id.toString(),
           originalTitle: result.originalTitle,
           overview: result.overview,
           posterPath: result.posterPath,
           title: result.title,
+          backdropPath: result.backdropPath,
           voteAverage: result.voteAverage,
           releaseDate: result.releaseDate,
         )
@@ -37,7 +39,9 @@ class MovieRepositoryImpl implements MovieRepository {
     results = [
       for (final result in data.results)
         MovieEntity(
+          id: result.id.toString(),
           originalTitle: result.originalTitle,
+          backdropPath: result.backdropPath,
           overview: result.overview,
           posterPath: result.posterPath,
           title: result.title,
