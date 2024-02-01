@@ -1,16 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_auth/core/exceptions/base_exception.dart';
 import 'package:movie_app_auth/core/utils/show_snackbar.dart';
 import 'package:movie_app_auth/features/api/data/repository/firebase_firestore_repository_impl.dart';
 import 'package:movie_app_auth/features/api/data/repository/movie_repository_impl.dart';
+import 'package:movie_app_auth/features/api/data/repository/review_repository_impl.dart';
 import 'package:movie_app_auth/features/api/domain/entity/movie_entity.dart';
+import 'package:movie_app_auth/features/api/domain/entity/review_entity.dart';
 import 'package:movie_app_auth/features/api/domain/repository/movie_repository.dart';
+import 'package:movie_app_auth/features/api/domain/usecase/addreview_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/addtofirebase_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/check_fav_movie_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/deletefromfirebase_usecase.dart';
+import 'package:movie_app_auth/features/api/domain/usecase/deletereview_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/getallmovies_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/getmovies_usecase.dart';
+import 'package:movie_app_auth/features/api/domain/usecase/getreview_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/search_movie_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/toprated_usecase.dart';
 import 'package:movie_app_auth/features/api/presentation/provider/movie_provider_state.dart';
@@ -63,6 +70,21 @@ class Movie extends _$Movie {
       state = AsyncValue.data(state.value!.copyWith(favMovies: favMovies));
       yield favMovies;
     }
+  }
+
+  Future<void> addReview(ReviewEntity entity) async {
+    final repository = ref.watch(reviewRepositoryProvider);
+    await AddReviewUseCase(repository: repository)(entity);
+  }
+
+  Future<void> delReview(String id) async {
+    final repository = ref.watch(reviewRepositoryProvider);
+    await DeleteReviewUseCase(repository: repository)(id);
+  }
+
+  Stream<List<ReviewEntity>> getreviews(String id) {
+    final repository = ref.watch(reviewRepositoryProvider);
+    return GetReviewUseCase(repository: repository)(id);
   }
 
   bool isMovieFavourite(String movieId) {

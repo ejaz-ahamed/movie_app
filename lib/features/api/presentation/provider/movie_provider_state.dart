@@ -10,6 +10,6 @@ class MovieProviderState with _$MovieProviderState {
     required List<MovieEntity> toprated,
     required List<MovieEntity>? searchmovies,
     required Stream<List<MovieEntity>> favMoviesStream,
-     required List<MovieEntity> favMovies,
+    required List<MovieEntity> favMovies,
   }) = _MovieProviderState;
 }

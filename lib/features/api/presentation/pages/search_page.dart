@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app_auth/core/constants/page_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/features/api/presentation/provider/movie_provider.dart';
+import 'package:movie_app_auth/features/api/presentation/widgets/bottomnavigation_widget.dart';
 import 'package:movie_app_auth/features/api/presentation/widgets/gridview_widget.dart';
 import 'package:movie_app_auth/features/api/presentation/widgets/searchtextfield_widget.dart';
 
@@ -82,6 +83,7 @@ class SearchPage extends HookConsumerWidget {
             ),
           ),
         ),
+        bottomNavigationBar: const BottomNavigationBarWidget(),
       ),
     );
   }

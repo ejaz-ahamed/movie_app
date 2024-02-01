@@ -14,7 +14,8 @@ class SearchTextFieldWidget extends ConsumerWidget {
     return TextField(
       style: const TextStyle(color: Colors.white),
       controller: controller,
-      cursorColor: AppTheme.of(context).colors.text,
+      cursorColor: Colors.white,
+      cursorWidth: 1.5,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
               horizontal: AppTheme.of(context).spaces.space_250,
@@ -33,7 +34,9 @@ class SearchTextFieldWidget extends ConsumerWidget {
           ),
           suffixIcon: IconButton(
               onPressed: () {
-                ref.read(movieProvider.notifier).searchMovies(controller.text,context);
+                ref
+                    .read(movieProvider.notifier)
+                    .searchMovies(controller.text, context);
               },
               icon: const Icon(
                 Icons.search,

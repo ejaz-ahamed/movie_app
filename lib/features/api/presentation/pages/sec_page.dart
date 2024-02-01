@@ -6,6 +6,7 @@ import 'package:movie_app_auth/core/constants/api_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/features/api/domain/entity/movie_entity.dart';
 import 'package:movie_app_auth/features/api/presentation/provider/movie_provider.dart';
+import 'package:movie_app_auth/features/api/presentation/widgets/showmodel_widget.dart';
 import 'package:movie_app_auth/features/api/presentation/widgets/youtube_button_widget.dart';
 
 class OverViewPage extends ConsumerWidget {
@@ -138,6 +139,73 @@ class OverViewPage extends ConsumerWidget {
                       }),
                 ],
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Reviews :",
+                    style: AppTheme.of(context)
+                        .typography
+                        .h700
+                        .copyWith(color: Colors.white),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return ShowModelWidget(entity: entity);
+                        },
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              StreamBuilder(
+                stream: ref.watch(movieProvider.notifier).getreviews(entity.id),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                      height: 300,
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) => ListTile(
+                          leading: const CircleAvatar(),
+                          title: Text(
+                            snapshot.data![index].review,
+                            style: AppTheme.of(context)
+                                .typography
+                                .h400
+                                .copyWith(color: Colors.white),
+                          ),
+                          trailing: IconButton(
+                              onPressed: () {
+                                ref
+                                    .read(movieProvider.notifier)
+                                    .delReview(snapshot.data![index].id);
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 20,
+                              )),
+                        ),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('Retry');
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
+              )
             ],
           ),
         ),
