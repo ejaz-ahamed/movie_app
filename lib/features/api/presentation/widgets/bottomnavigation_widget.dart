@@ -4,6 +4,7 @@ import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/core/themes/color_palette_themes.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/favourite_movies_page.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/home_page.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/search_page.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({super.key});
@@ -26,7 +27,11 @@ class BottomNavigationBarWidget extends StatelessWidget {
                 icon: const Icon(Icons.home_filled)),
             label: ''),
         BottomNavigationBarItem(
-            icon: IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+            icon: IconButton(
+                onPressed: () {
+                  context.push(SearchPage.routePath);
+                },
+                icon: const Icon(Icons.search)),
             label: ''),
         BottomNavigationBarItem(
             icon: IconButton(

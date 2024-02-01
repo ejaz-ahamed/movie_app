@@ -55,7 +55,7 @@ class OverViewPage extends ConsumerWidget {
                       children: [
                         TextSpan(text: " (${entity.releaseDate.year})"),
                         TextSpan(
-                          text: "    ⭐${entity.voteAverage}",
+                          text: "    ⭐${entity.voteAverage.toStringAsFixed(1)}",
                           style: AppTheme.of(context)
                               .typography
                               .h500
@@ -97,23 +97,47 @@ class OverViewPage extends ConsumerWidget {
                 ),
               ),
               SizedBox(
-                height: AppTheme.of(context).spaces.space_125,
+                height: AppTheme.of(context).spaces.space_150,
               ),
-              const YoutubeButtonWidget(),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(movieProvider.notifier).addtoFireStore(entity);
-                },
-                child: const Text('Add'),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const YoutubeButtonWidget(),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  StreamBuilder(
+                      stream: ref.watch(movieProvider).value!.favMoviesStream,
+                      builder: (context, snapshot) {
+                        final isFavMovie = ref
+                            .read(movieProvider.notifier)
+                            .isMovieFavourite(entity.id);
+
+                        return IconButton(
+                          style: IconButton.styleFrom(
+                              backgroundColor: const Color(0xFFCD201F),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 15)),
+                          onPressed: () {
+                            if (isFavMovie) {
+                              ref
+                                  .read(movieProvider.notifier)
+                                  .deleteFromFireStore(entity.id);
+                            } else {
+                              ref
+                                  .read(movieProvider.notifier)
+                                  .addtoFireStore(entity);
+                            }
+                          },
+                          icon: Icon(
+                            isFavMovie ? Icons.favorite : Icons.favorite_border,
+                            size: 35,
+                            color: Colors.white,
+                          ),
+                        );
+                      }),
+                ],
               ),
-              ElevatedButton(
-                onPressed: () {
-                  ref
-                      .read(movieProvider.notifier)
-                      .deleteFromFireStore(entity.id);
-                },
-                child: const Text('remove'),
-              )
             ],
           ),
         ),

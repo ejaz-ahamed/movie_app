@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app_auth/features/api/domain/entity/movie_entity.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/favourite_movies_page.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/home_page.dart';
+import 'package:movie_app_auth/features/api/presentation/pages/search_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/login_page.dart';
 import 'package:movie_app_auth/features/authentication/presentation/pages/mobileauth_page.dart';
 import 'package:movie_app_auth/features/api/presentation/pages/sec_page.dart';
@@ -20,7 +21,7 @@ final _router = GoRouter(
       builder: (context, state) => const HomePage(),
       redirect: (context, state) {
         final user = FirebaseAuth.instance.currentUser;
-        if (user == null || !user.emailVerified) {
+        if (user == null || !user.emailVerified && user.phoneNumber == null) {
           return LoginPage.routePath;
         }
         return null;
@@ -47,6 +48,10 @@ final _router = GoRouter(
       builder: (context, state) => OverViewPage(
         entity: state.extra as MovieEntity,
       ),
+    ),
+    GoRoute(
+      path: SearchPage.routePath,
+      builder: (context, state) => const SearchPage(),
     ),
     GoRoute(
       path: FavouriteMoviesPage.routePath,

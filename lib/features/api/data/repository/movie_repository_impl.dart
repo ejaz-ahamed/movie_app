@@ -19,13 +19,13 @@ class MovieRepositoryImpl implements MovieRepository {
       for (final result in ds.results)
         MovieEntity(
           id: result.id.toString(),
-          originalTitle: result.originalTitle,
-          overview: result.overview,
-          posterPath: result.posterPath,
-          title: result.title,
-          backdropPath: result.backdropPath,
-          voteAverage: result.voteAverage,
-          releaseDate: result.releaseDate,
+          originalTitle: result.originalTitle ?? '',
+          overview: result.overview ?? '',
+          posterPath: result.posterPath ?? '',
+          backdropPath: result.backdropPath ?? '',
+          title: result.title ?? '',
+          voteAverage: result.voteAverage ?? 0,
+          releaseDate: DateTime.tryParse(result.releaseDate ?? '') ?? DateTime.now(),
         )
     ];
     return results;
@@ -40,13 +40,33 @@ class MovieRepositoryImpl implements MovieRepository {
       for (final result in data.results)
         MovieEntity(
           id: result.id.toString(),
-          originalTitle: result.originalTitle,
-          backdropPath: result.backdropPath,
-          overview: result.overview,
-          posterPath: result.posterPath,
-          title: result.title,
-          voteAverage: result.voteAverage,
-          releaseDate: result.releaseDate,
+          originalTitle: result.originalTitle ?? '',
+          backdropPath: result.backdropPath ?? '',
+          overview: result.overview ?? '',
+          posterPath: result.posterPath ?? '',
+          title: result.title ?? '',
+          voteAverage: result.voteAverage ?? 0,
+          releaseDate: DateTime.tryParse(result.releaseDate ?? '') ?? DateTime.now(),
+        )
+    ];
+    return results;
+  }
+
+  @override
+  Future<List<MovieEntity>> searchMovies(String text) async {
+    final data = await dataSource.searchMovies(text);
+    late List<MovieEntity> results;
+    results = [
+      for (final result in data.results)
+        MovieEntity(
+          id: result.id.toString(),
+          originalTitle: result.originalTitle ?? '',
+          overview: result.overview ?? '',
+          posterPath: result.posterPath ?? '',
+          backdropPath: result.backdropPath ?? '',
+          title: result.title ?? '',
+          voteAverage: result.voteAverage ?? 0,
+          releaseDate: DateTime.tryParse(result.releaseDate ?? '') ?? DateTime.now() ,
         )
     ];
     return results;

@@ -22,7 +22,7 @@ class FavouriteMoviesPage extends ConsumerWidget {
       ),
       backgroundColor: const Color.fromARGB(255, 32, 31, 31),
       body: StreamBuilder(
-          stream: ref.read(movieProvider.notifier).getAllMovies(),
+          stream: ref.watch(movieProvider.notifier).getAllMovies(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return GridViewWidget(

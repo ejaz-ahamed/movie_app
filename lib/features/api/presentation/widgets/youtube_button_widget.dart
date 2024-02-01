@@ -9,7 +9,7 @@ class YoutubeButtonWidget extends StatelessWidget {
         onPressed: () {},
         style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFCD201F),
-            padding: const EdgeInsets.symmetric(vertical: 10)),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 80)),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
