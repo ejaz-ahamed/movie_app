@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,8 +8,10 @@ import 'package:movie_app_auth/core/constants/api_constants.dart';
 import 'package:movie_app_auth/core/themes/app_theme.dart';
 import 'package:movie_app_auth/features/api/domain/entity/movie_entity.dart';
 import 'package:movie_app_auth/features/api/presentation/provider/movie_provider.dart';
+import 'package:movie_app_auth/features/api/presentation/provider/trailer_provider.dart';
 import 'package:movie_app_auth/features/api/presentation/widgets/showmodel_widget.dart';
 import 'package:movie_app_auth/features/api/presentation/widgets/youtube_button_widget.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class OverViewPage extends ConsumerWidget {
   static const routePath = '/overview';
@@ -34,12 +38,25 @@ class OverViewPage extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
-              Container(
-                width: double.infinity,
-                height: MediaQuery.sizeOf(context).height / 2.5,
-                color: Colors.black87,
-                child: Image.network("$imagePath${entity.posterPath}"),
-              ),
+              Builder(builder: (context) {
+                final posterPathFile = File(entity.posterPath);
+                late final ImageProvider image;
+                if (posterPathFile.existsSync()) {
+                  image = FileImage(posterPathFile);
+                } else {
+                  image = NetworkImage(
+                    ApiConstants.imagePath + entity.posterPath,
+                  );
+                }
+                return Container(
+                  width: double.infinity,
+                  height: MediaQuery.sizeOf(context).height / 2.5,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    image: DecorationImage(image: image),
+                  ),
+                );
+              }),
               SizedBox(
                 height: AppTheme.of(context).spaces.space_125,
               ),
@@ -103,7 +120,9 @@ class OverViewPage extends ConsumerWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const YoutubeButtonWidget(),
+                  YoutubeButtonWidget(
+                    entity: entity,
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
@@ -139,6 +158,55 @@ class OverViewPage extends ConsumerWidget {
                       }),
                 ],
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              ref.watch(trailerProvider(entity.id.toString())).isRefreshing
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Center(
+                      child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height * .24,
+                        child: Center(
+                          child: switch (ref
+                              .watch(trailerProvider(entity.id.toString()))) {
+                            AsyncData(:final value) => PageView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: value.length,
+                                itemBuilder: (context, index) {
+                                  return YoutubePlayer(
+                                    controller: YoutubePlayerController(
+                                      initialVideoId: value[index].key,
+                                      flags: const YoutubePlayerFlags(
+                                        autoPlay: false,
+                                        mute: false,
+                                        disableDragSeek: true,
+                                      ),
+                                    ),
+                                    bufferIndicator: const Center(
+                                        child: CircularProgressIndicator()),
+                                    showVideoProgressIndicator: true,
+                                  );
+                                },
+                              ),
+                            AsyncError(:final error) => Column(
+                                children: [
+                                  Text("$error"),
+                                  TextButton(
+                                    onPressed: () {
+                                      ref.invalidate(trailerProvider(
+                                          entity.id.toString()));
+                                    },
+                                    child: const Text('Retry'),
+                                  )
+                                ],
+                              ),
+                            _ => const CircularProgressIndicator()
+                          },
+                        ),
+                      ),
+                    ),
               const SizedBox(
                 height: 20,
               ),

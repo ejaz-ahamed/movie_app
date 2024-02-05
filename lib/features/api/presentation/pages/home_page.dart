@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -66,6 +68,17 @@ class HomePage extends ConsumerWidget {
                                 itemCount: value.getMovies.length,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
+                                  final posterPathFile =
+                                      File(value.getMovies[index].posterPath);
+                                  late final Image image;
+                                  if (posterPathFile.existsSync()) {
+                                    image = Image.file(posterPathFile);
+                                  } else {
+                                    image = Image.network(
+                                      ApiConstants.imagePath +
+                                          value.getMovies[index].posterPath,
+                                    );
+                                  }
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: ClipRRect(
@@ -88,10 +101,7 @@ class HomePage extends ConsumerWidget {
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(10),
-                                                  child: Image.network(
-                                                    '$imagePath${value.getMovies[index].posterPath}',
-                                                    fit: BoxFit.cover,
-                                                  ),
+                                                  child: image,
                                                 ),
                                               ),
                                               const SizedBox(

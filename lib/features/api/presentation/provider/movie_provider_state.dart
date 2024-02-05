@@ -7,7 +7,6 @@ part 'movie_provider_state.freezed.dart';
 class MovieProviderState with _$MovieProviderState {
   factory MovieProviderState({
     required List<MovieEntity> getMovies,
-    required List<MovieEntity> toprated,
     required List<MovieEntity>? searchmovies,
     required Stream<List<MovieEntity>> favMoviesStream,
     required List<MovieEntity> favMovies,

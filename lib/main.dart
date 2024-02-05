@@ -1,15 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app_auth/core/object_box/movie_objectbox.dart';
 import 'package:movie_app_auth/core/router/router.dart';
 import 'package:movie_app_auth/core/themes/light_theme.dart';
 import 'package:movie_app_auth/firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await MovieObjectBox.create();
   runApp(const ProviderScope(child: MyApp()));
 }
 

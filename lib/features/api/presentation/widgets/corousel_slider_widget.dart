@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,13 +12,21 @@ import 'package:movie_app_auth/features/api/presentation/pages/sec_page.dart';
 class CarouselWidget extends ConsumerWidget {
   final images = ApiConstants.imagePath;
   final List<MovieEntity> list;
-  const CarouselWidget(
-      {super.key,required this.list});
+  const CarouselWidget({super.key, required this.list});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CarouselSlider.builder(
       itemCount: list.length,
       itemBuilder: (context, index, realIndex) {
+        final posterPathFile = File(list[index].posterPath);
+        late final ImageProvider image;
+        if (posterPathFile.existsSync()) {
+          image = FileImage(posterPathFile);
+        } else {
+          image = NetworkImage(
+            images + list[index].posterPath,
+          );
+        }
         return InkWell(
           onTap: () => context.push(OverViewPage.routePath, extra: list[index]),
           child: Container(
@@ -24,11 +34,7 @@ class CarouselWidget extends ConsumerWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: AppTheme.of(context).colors.textSubtle,
-                image: DecorationImage(
-                    image: NetworkImage(
-                      images + list[index].posterPath,
-                    ),
-                    fit: BoxFit.fill)),
+                image: DecorationImage(image: image, fit: BoxFit.fill)),
           ),
         );
       },

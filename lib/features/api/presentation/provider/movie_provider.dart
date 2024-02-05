@@ -6,20 +6,21 @@ import 'package:movie_app_auth/core/exceptions/base_exception.dart';
 import 'package:movie_app_auth/core/utils/show_snackbar.dart';
 import 'package:movie_app_auth/features/api/data/repository/firebase_firestore_repository_impl.dart';
 import 'package:movie_app_auth/features/api/data/repository/movie_repository_impl.dart';
+import 'package:movie_app_auth/features/api/data/repository/objectbox_repository_impl.dart';
 import 'package:movie_app_auth/features/api/data/repository/review_repository_impl.dart';
 import 'package:movie_app_auth/features/api/domain/entity/movie_entity.dart';
 import 'package:movie_app_auth/features/api/domain/entity/review_entity.dart';
 import 'package:movie_app_auth/features/api/domain/repository/movie_repository.dart';
+import 'package:movie_app_auth/features/api/domain/repository/objectbox_repository.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/addreview_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/addtofirebase_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/check_fav_movie_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/deletefromfirebase_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/deletereview_usecase.dart';
-import 'package:movie_app_auth/features/api/domain/usecase/getallmovies_usecase.dart';
+import 'package:movie_app_auth/features/api/domain/usecase/getall_favourite_movies_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/getmovies_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/getreview_usecase.dart';
 import 'package:movie_app_auth/features/api/domain/usecase/search_movie_usecase.dart';
-import 'package:movie_app_auth/features/api/domain/usecase/toprated_usecase.dart';
 import 'package:movie_app_auth/features/api/presentation/provider/movie_provider_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,15 +31,14 @@ class Movie extends _$Movie {
   @override
   Future<MovieProviderState> build() async {
     final MovieRepository repository = ref.watch(movieRepositoryProvider);
+    final ObjectBoxRepository objRepository = ref.watch(objRepositoryProvider);
     getAllMovies();
     final result = await Future.wait([
-      GetMoviesUseCase(repository: repository)(),
-      TopRatedUseCase(repository: repository)(),
+      GetMoviesUseCase(repository: repository, objRepository: objRepository)(),
     ]);
     return MovieProviderState(
         searchmovies: null,
         getMovies: result[0],
-        toprated: result[1],
         favMovies: [],
         favMoviesStream: getAllMovies().asBroadcastStream());
   }

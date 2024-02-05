@@ -49,6 +49,11 @@ dependencies:
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.14.0
   curved_navigation_bar: ^1.0.3
+  objectbox: ^2.4.0
+  objectbox_flutter_libs: ^2.4.0
+  path: ^1.9.0
+  path_provider: ^2.1.2
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:
@@ -64,8 +69,9 @@ dev_dependencies:
   freezed: ^2.4.6
   json_serializable: ^6.7.1
   riverpod_generator: ^2.3.9
-  custom_lint: ^0.5.7
+  custom_lint: ^0.6.0
   riverpod_lint: ^2.3.7
+  objectbox_generator: ^2.4.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
